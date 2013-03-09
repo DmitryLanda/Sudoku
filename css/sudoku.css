@@ -1,0 +1,38 @@
+.sudoku {
+    border: 1px solid gray;
+    width: 324px;
+    height: 324px;
+}
+
+.sudoku-row {
+    width: 100%;
+}
+
+.sudoku-cell {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    border: solid 1px gray;
+    text-align:center;
+}
+
+div.sudoku-cell-value {
+    margin: 5px auto;
+}
+
+.sudoku-cell-value {
+    color: #000000;
+    width: 30px;
+    height: 30px;
+}
+
+.empty {
+    cursor: pointer;
+}
+
+.filled {
+    background-color: lightgray;
+    font-weight: bold;
+    cursor: default;
+}

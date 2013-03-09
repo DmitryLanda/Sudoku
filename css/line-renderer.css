@@ -1,0 +1,55 @@
+#line-suggestion-renderer {
+    position: relative;
+    width: 108px;
+    height: 108px;
+    top: -42px;
+    left: -42px;
+    z-index: 100;
+}
+#line-suggestion-row-first,
+#line-suggestion-row-second,
+#line-suggestion-row-third {
+    height: 30px;
+    margin: 5px;
+    width: 100%;
+    border: none;
+}
+#line-suggestion-cell-1,
+#line-suggestion-cell-2,
+#line-suggestion-cell-3,
+#line-suggestion-cell-4 {
+    float: left;
+    width: 23px;
+    height: 100%;
+    margin-right: 2px;
+    border: 1px solid red;
+    background-color: #f9f9f9;
+    color: #000000;
+}
+
+#line-suggestion-cell-5,
+#line-suggestion-cell-6,
+#line-suggestion-cell-7,
+#line-suggestion-cell-8,
+#line-suggestion-cell-9 {
+    float: left;
+    width: 30px;
+    height: 100%;
+    margin-right: 2px;
+    border: 1px solid red;
+    background-color: #f9f9f9;
+    color: #000000;
+}
+#line-suggestion-cell-3 {}
+#line-suggestion-cell-4 {
+    float: right;
+}
+#line-suggestion-cell-5 {}
+#line-suggestion-cell-6 {
+    float: right;
+}
+#line-suggestion-cell-7 {}
+#line-suggestion-cell-8 {}
+#line-suggestion-cell-9 {
+    float: right;
+}
