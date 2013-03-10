@@ -1,4 +1,8 @@
+## Django files
 *.log
 *.pot
 *.pyc
 local_settings.py
+
+## IDE files
+.idea/

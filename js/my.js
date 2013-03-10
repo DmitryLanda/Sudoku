@@ -142,7 +142,7 @@ var NoneSuggestionView = (function() {
             input.select();
 
             //we should "cancel" replace when input lose focus
-            $(document).on('blur', 'input.sudoku-cell-value', function(e) {
+            input.on('blur', function(e) {
                 var input = $(e.currentTarget);
                 //create element to replace
                 var div = $('<div></div>');
@@ -154,6 +154,16 @@ var NoneSuggestionView = (function() {
                 //replace
                 input.replaceWith(div);
             });
+
+            input.on('keypress', function(e) {
+                var input = $(e.currentTarget);
+                var keyValue = String.fromCharCode(e.which);
+                if (/^\d$/.test(keyValue)) {
+                    input.val(keyValue);
+                }
+                input.blur();
+            });
+
         }
     };
 
@@ -179,7 +189,6 @@ var LineSuggestionView = (function() {
             e.stopPropagation();
             var div = $(e.currentTarget);
             if (div.parent().hasClass('filled')) {
-                console.log('Base cells are unchangable');
                 return false;
             }
             //remove old elements if they exists
@@ -196,6 +205,13 @@ var LineSuggestionView = (function() {
                 var cellDiv = $('<div></div>');
                 cellDiv.text(i);
                 cellDiv.attr('id', 'line-suggestion-cell-' + i);
+                //we should remove suggestions popup when value is selected
+                cellDiv.on('click', function(e) {
+                    var div = $(e.currentTarget);
+                    e.stopPropagation();
+                    commonDiv.parent().text(div.text());
+                    commonDiv.remove();
+                });
                 row1.append(cellDiv);
             }
 
@@ -207,6 +223,13 @@ var LineSuggestionView = (function() {
                 var cellDiv = $('<div></div>');
                 cellDiv.text(i);
                 cellDiv.attr('id', 'line-suggestion-cell-' + i);
+                //we should remove suggestions popup when value is selected
+                cellDiv.on('click', function(e) {
+                    var div = $(e.currentTarget);
+                    e.stopPropagation();
+                    commonDiv.parent().text(div.text());
+                    commonDiv.remove();
+                });
                 row2.append(cellDiv);
             }
 
@@ -218,6 +241,13 @@ var LineSuggestionView = (function() {
                 var cellDiv = $('<div></div>');
                 cellDiv.text(i);
                 cellDiv.attr('id', 'line-suggestion-cell-' + i);
+                //we should remove suggestions popup when value is selected
+                cellDiv.on('click', function(e) {
+                    var div = $(e.currentTarget);
+                    e.stopPropagation();
+                    commonDiv.parent().text(div.text());
+                    commonDiv.remove();
+                });
                 row3.append(cellDiv);
             }
 
@@ -226,15 +256,6 @@ var LineSuggestionView = (function() {
             commonDiv.append(row3);
 
             div.append(commonDiv);
-
-            //we should remove suggestions popup when value is selected
-            $(document).on('click', '#line-suggestion-renderer > div > div', function(e) {
-                var div = $(e.currentTarget);
-                e.stopPropagation();
-                console.log(div);
-                $('#line-suggestion-renderer').parent().text(div.text());
-                $('#line-suggestion-renderer').remove();
-            });
         }
     };
 
@@ -245,7 +266,7 @@ $(document).ready(function() {
     //create some radio buttons
     //just to test on-fly switching renderers...
     $(document.body).append('None: ');
-    $(document.body).append($('<input type="radio" name="switcher" value="none" checked="checked">'));
+    $(document.body).append($('<input type="radio" name="switcher" value="none">'));
     $(document.body).append('Line: ');
     $(document.body).append($('<input type="radio" name="switcher" value="line">'));
 
