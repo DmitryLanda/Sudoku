@@ -1,0 +1,21 @@
+@import "sudoku.css";
+@import "line-renderer.css";
+
+#loading {
+    background: url("../bg_noise_light.jpg") repeat;
+    opacity: 0.7;
+    cursor: wait;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#loading > div{
+    background-image: url("../loading.gif");
+    cursor: wait;
+    width: 41px;
+    height: 39px;
+    position: absolute;
+    top: 48%;
+    left: 48%;
+}
