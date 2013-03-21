@@ -8,13 +8,26 @@
     width: 100%;
 }
 
-.sudoku-cell {
+div.sudoku-cell {
     float: left;
     width: 30px;
     height: 30px;
     margin: 2px;
     border: solid 1px gray;
     text-align:center;
+}
+
+input.sudoku-cell {
+    float: left;
+    width: 28px;
+    height: 26px;
+    margin: 2px;
+    border: solid 1px gray;
+    text-align:center;
+}
+
+input.sudoku-cell.selected {
+    border: solid 2px cadetblue;
 }
 
 div.sudoku-cell-value {

@@ -1,4 +1,5 @@
 $.use('/js/src/Sudoku.js');
+$.use('/js/src/SuggestionViewFactory.js');
 
 var init = function() {
     //create some radio buttons
@@ -9,7 +10,7 @@ var init = function() {
     $(document.body).append($('<input type="radio" name="switcher" value="line">'));
 
     //create sudoku instance
-    s = new Sudoku(
+    var s = new Sudoku(
         [
             [0, 0, 0, 0, 0, 0, 0, 0, 8],
             [0, 0, 9, 0, 0, 0, 0, 0, 1],
@@ -22,6 +23,9 @@ var init = function() {
             [0, 1, 0, 8, 0, 7, 0, 0, 0]
         ]
     );
+    var renderer = SuggestionViewFactory.create('none');
+    SuggestionRenderer.setRenderer(renderer);
+
     //display it
     $(document.body).append(s.render());
 };

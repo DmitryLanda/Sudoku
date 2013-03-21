@@ -1,15 +1,14 @@
 var Sudoku = (function() {
     var constructor = function(initialValues) {
         this.cells = [];
-        cells = this.cells;
 
-        var suggestions = new Suggestion(initialValues);
-        suggestions.setRenderer(1);
+        var suggestionManager = new SuggestionManager();
+        suggestionManager.init(initialValues);
         for (var i = 0; i < initialValues.length; i++) {
             var row = [];
             for (var j = 0; j < initialValues[i].length; j++) {
                 var cell = new Cell(i, j, initialValues[i][j]);
-                cell.setSuggestions(suggestions);
+                cell.setSuggestionManager(suggestionManager);
                 row.push(cell);
             }
             this.cells.push(row);
@@ -35,100 +34,99 @@ var Sudoku = (function() {
 })();
 
 var Cell = (function() {
-    var constructor = function(i, j, data) {
+    return function(i, j, data) {
         var self = this;
 
-        this.setSuggestions = function(suggestions) {
-            this.suggestions = suggestions;
-        };
+        self.rowPosition = i;
+        self.columnPosition = j;
+        self.value = data;
+        self.isInitialCell = parseInt(data) > 0;
+        self.suggestionManager = [];
 
-        this.render = function() {
+        self.render = function() {
             var cell = $('<div class="sudoku-cell"></div>');
-            if (this.getValue()) {
-                $(cell).text(this.getValue());
+            if (self.getValue()) {
+                $(cell).text(self.getValue());
             }
-            if (this.isInitialCell) {
+            if (self.isInitialCell) {
                 $(cell).addClass('filled');
             } else {
                 $(cell).addClass('empty');
             }
-            $(cell).attr('id', 'cell-' + this.rowPosition + '-' + this.columnPosition);
+            $(cell).attr('id', 'cell-' + self.rowPosition + '-' + self.columnPosition);
             $(cell).click(function(e) {
-                console.log(this);
-
-                self.suggestions.render(self.rowPosition, self.columnPosition);
+                SuggestionRenderer.render(self);
             });
 
-            this.view = cell;
+            self.view = cell;
 
             return cell;
         };
 
-        this.getValue = function() {
-            return this.value;
+        self.getValue = function() {
+            return self.value ? self.value : null;
         };
-        this.setValue = function(value) {
-            if (!/^\d+$/.test(this.value)) {
-                return false;
+
+        self.setValue = function(value) {
+            if (/^\d+$/.test(value)) {
+                self.value = parseInt(value);
+                self.view.text(self.value);
+                self.suggestionManager.update(self.rowPosition, self.columnPosition, self.value);
+
+                return this.getValue();
             }
-
-            this.value = parseInt(value);
-            $(this.view).text(this.value);
-            this.suggestions.update(this.rowPosition, this.columnPosition, this.value);
         };
 
-        this.rowPosition = i;
-        this.columnPosition = j;
-        this.value = data;
-        this.isInitialCell = parseInt(data) > 0;
-        this.suggestions = null;
+        self.setSuggestionManager = function(suggestionManager) {
+            self.suggestionManager = suggestionManager;
+        };
     };
-
-    return constructor;
 })();
 
-var Suggestion = (function() {
-    var renderer = null;
-    var suggestion = [];
+var SuggestionManager = function() {
+    this.suggestion = [];
 
-    var constructor = function(data) {
-        this.update = function(i, j, value) {
-            //temporary!!!
-            suggestion[i][j] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-            if (value in suggestion[i][j]) {
-                var key = suggestion[i][j].indexOf(value);
-                if (key != -1) {
-                    suggestion[i][j].splice(key, 1);
-                }
-            }
-        };
-        this.getCellSuggestions = function(i, j) {
-            return suggestion[i][j];
-        };
-        this.render = function(i, j) {
-            if (!renderer) {
-                throw 'Suggestion renderer should be set!';
-            }
+    this.render = function(i, j) {
+        console.log(this.getCellSuggestions(i, j));
+    };
 
-            console.log(suggestion[i][j]);
-        };
-        this.setRenderer = function(rendererInstance) {
-            renderer = rendererInstance;
-        };
-
-        for (var i = 0; i < 9; i++) {
-            //add i row to list
-            suggestion.push([]);
-            for (var j = 0; j < 9; j++) {
-                suggestion[i].push([1, 2, 3, 4, 5, 6, 7, 8, 9]);
-                this.update(i, j, data[i][j]);
+    this.update = function(i, j, value) {
+        //temporary!!!
+        this.suggestion[i][j] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        if (value in this.suggestion[i][j]) {
+            var key = this.suggestion[i][j].indexOf(value);
+            if (key != -1) {
+                this.suggestion[i][j].splice(key, 1);
             }
         }
     };
 
-    constructor.prototype = {
-
+    this.getCellSuggestions = function(i, j) {
+        return this.suggestion[i][j];
     };
 
-    return constructor;
-})();
+
+    this.init = function(data) {
+        for (var i = 0; i < 9; i++) {
+            //add i row to list
+            this.suggestion.push([]);
+            for (var j = 0; j < 9; j++) {
+                this.suggestion[i].push([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+                this.update(i, j, data[i][j]);
+            }
+        }
+    };
+};
+
+var SuggestionRenderer = {
+    self: this,
+    renderer: null,
+
+    setRenderer: function(renderer) {
+        self.renderer = renderer;
+    },
+
+    render: function(cell) {
+        self.renderer.render(cell);
+    }
+};
