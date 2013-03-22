@@ -55,7 +55,9 @@ var Cell = (function() {
             }
             $(cell).attr('id', 'cell-' + self.rowPosition + '-' + self.columnPosition);
             $(cell).click(function(e) {
-                SuggestionRenderer.render(self);
+                if (!self.isInitialCell) {
+                    SuggestionRenderer.render(self);
+                }
             });
 
             self.view = cell;
@@ -80,6 +82,10 @@ var Cell = (function() {
         self.setSuggestionManager = function(suggestionManager) {
             self.suggestionManager = suggestionManager;
         };
+
+        self.getSuggestions = function() {
+            return self.suggestionManager.getCellSuggestions(self.rowPosition, self.columnPosition);
+        };
     };
 })();
 
@@ -93,11 +99,9 @@ var SuggestionManager = function() {
     this.update = function(i, j, value) {
         //temporary!!!
         this.suggestion[i][j] = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-        if (value in this.suggestion[i][j]) {
-            var key = this.suggestion[i][j].indexOf(value);
-            if (key != -1) {
-                this.suggestion[i][j].splice(key, 1);
-            }
+        var key = $.inArray(value, this.suggestion[i][j]);
+        if (key != -1) {
+            this.suggestion[i][j].splice(key, 1);
         }
     };
 

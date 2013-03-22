@@ -25,11 +25,18 @@ var NoneView = function() {
             $(this).replaceWith(cell.render());
         });
 
-        input.on('keypress', function(e) {
-            var keyValue = String.fromCharCode(e.which);
-            if (/^\d$/.test(keyValue)) {
-                $(this).val(keyValue);
+        input.on('keyup', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.which != 8 && e.which != 46) {
+                var keyValue = String.fromCharCode(e.which);
+                if (/^\d$/.test(keyValue)) {
+                    $(this).val(keyValue);
+                }
+            } else {
+                $(this).val(0);
             }
+
             $(this).blur();
         });
     }

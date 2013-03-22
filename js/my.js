@@ -23,7 +23,7 @@ var init = function() {
             [0, 1, 0, 8, 0, 7, 0, 0, 0]
         ]
     );
-    var renderer = SuggestionViewFactory.create('none');
+    var renderer = SuggestionViewFactory.create('line');
     SuggestionRenderer.setRenderer(renderer);
 
     //display it
