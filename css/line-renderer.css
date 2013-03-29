@@ -1,5 +1,5 @@
-#line-suggestion-renderer {
-    position: relative;
+.suggestion {
+    position: absolute;
     width: 108px;
     height: 108px;
     top: -42px;
@@ -7,14 +7,14 @@
     z-index: 100;
 }
 
-#line-suggestion-renderer .row {
+.suggestion .suggestion-row {
     height: 30px;
     margin: 5px;
     width: 100%;
     border: none;
 }
 
-#line-suggestion-renderer .row > .cell {
+.suggestion .suggestion-row > .suggestion-cell {
     float: left;
     width: 30px;
     height: 100%;
@@ -24,20 +24,14 @@
     color: #000000;
 }
 
-#line-suggestion-renderer .row:first-child > .cell {
-    float: left;
+.suggestion .suggestion-row:first-child > .suggestion-cell {
     width: 23px;
-    height: 100%;
-    margin-right: 2px;
-    border: 1px solid red;
-    background-color: #f9f9f9;
-    color: #000000;
 }
 
-#line-suggestion-renderer .row > .cell:first-child {
+.suggestion .suggestion-row > .suggestion-cell:first-child {
     float: left;
 }
 
-#line-suggestion-renderer .row > .cell:last-child {
+.suggestion .suggestion-row > .suggestion-cell:last-child {
     float: right;
 }

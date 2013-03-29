@@ -31,7 +31,7 @@ var Sudoku = (function() {
     };
 
     return constructor;
-})();
+}());
 
 var Cell = (function() {
     return function(i, j, data) {
@@ -87,7 +87,7 @@ var Cell = (function() {
             return self.suggestionManager.getCellSuggestions(self.rowPosition, self.columnPosition);
         };
     };
-})();
+}());
 
 var SuggestionManager = function() {
     this.suggestion = [];
