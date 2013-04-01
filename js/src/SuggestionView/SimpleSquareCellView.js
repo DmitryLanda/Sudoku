@@ -64,14 +64,14 @@ var SimpleSquareCellView = function() {
             var val = (i > 5) ? i : (i + 1);
             if ($.inArray(val, cell.getSuggestions()) != -1) {
                 curCell.text(val);
+            }
             curCell.on('click', function(e) {
                 var div = $(e.currentTarget);
                 e.stopPropagation();
-                cell.setValue(div.text());
+                cell.setValue(div.text() || 0);
                 self.clear();
             });
 
-            }
             row.append(curCell);
 
             if (i % 3 == 0 && i > 0) {

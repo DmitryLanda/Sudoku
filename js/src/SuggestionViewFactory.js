@@ -1,5 +1,5 @@
-$.use('/js/src/SuggestionView/NoneView.js');
-$.use('/js/src/SuggestionView/SimpleSquareCellView.js');
+$.use('http://192.168.1.33/test/js/src/SuggestionView/NoneView.js');
+$.use('http://192.168.1.33/test/js/src/SuggestionView/SimpleSquareCellView.js');
 
 /**
  * Renderer factory

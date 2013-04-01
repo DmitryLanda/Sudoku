@@ -2,6 +2,7 @@
     border: 1px solid gray;
     width: 324px;
     height: 324px;
+    margin: 100px;
 }
 
 .sudoku-row {

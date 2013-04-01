@@ -1,5 +1,5 @@
-$.use('/js/src/Sudoku.js');
-$.use('/js/src/SuggestionViewFactory.js');
+$.use('http://192.168.1.33/test/js/src/Sudoku.js');
+$.use('http://192.168.1.33/test/js/src/SuggestionViewFactory.js');
 
 var init = function() {
     //create some radio buttons
